@@ -13,7 +13,7 @@ public class TCPMultiClient {
                 new BufferedReader(
                         new InputStreamReader(System.in));
 
-        Socket clientSocket = new Socket("127.0.0.1", 6789);
+        Socket clientSocket = new Socket("127.0.0.1", argv.length == 0 ? 6789 : Integer.parseInt( argv[0] ) );
 
         /*
          * see the description of the option in {@link SocketOptions}.

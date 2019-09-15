@@ -6,9 +6,11 @@ public class TCPMultiServer
     public static void main( String argv[] ) throws Exception
     {
         long t1 = System.currentTimeMillis();
-        ServerSocket welcomeSocket = new ServerSocket( 6789, 50 );
+        ServerSocket welcomeSocket = new ServerSocket( 0, 50 );
         long t2 = System.currentTimeMillis();
         System.out.println( "t2 = " + (t2 - t1) + " millis" );
+
+        System.out.println( "local server port=" + welcomeSocket.getLocalPort() );
 
         Responder h = new Responder();
         // server runs for infinite time and
