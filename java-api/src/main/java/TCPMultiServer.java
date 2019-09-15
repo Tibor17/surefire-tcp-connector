@@ -6,7 +6,7 @@ public class TCPMultiServer
     public static void main( String argv[] ) throws Exception
     {
         long t1 = System.currentTimeMillis();
-        ServerSocket welcomeSocket = new ServerSocket( 6789 );
+        ServerSocket welcomeSocket = new ServerSocket( 6789, 50 );
         long t2 = System.currentTimeMillis();
         System.out.println( "t2 = " + (t2 - t1) + " millis" );
 

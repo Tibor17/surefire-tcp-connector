@@ -13,7 +13,16 @@ public class TCPMultiClient {
                 new BufferedReader(
                         new InputStreamReader(System.in));
 
-        Socket clientSocket = new Socket("localhost", 6789);
+        Socket clientSocket = new Socket("127.0.0.1", 6789);
+
+        /*
+         * see the description of the option in {@link SocketOptions}.
+         */
+        System.out.println( "SO_KEEPALIVE=" + clientSocket.getKeepAlive() );
+        System.out.println( "SO_TIMEOUT=" + clientSocket.getSoTimeout() );
+        System.out.println( "TCP_NODELAY=" + clientSocket.getTcpNoDelay() );
+        System.out.println( "SO_OOBINLINE=" + clientSocket.getOOBInline() );
+        System.out.println( "SO_LINGER=" + clientSocket.getSoLinger() );
 
         while (true) {
             DataOutputStream outToServer =
