@@ -17,4 +17,7 @@ Received Message : Hello There
 Received Message : Thanks For Reply !!
 ```
 
+The plugin `maven-shade-plugin` builds and shrinks the JAR file. The size of the JAR file is 1 MB.
+The original size of `netty-all` is 4 MB.
+
 The pure TCP/IP server starts up within `5 milli seconds`.
