@@ -21,3 +21,11 @@ The plugin `maven-shade-plugin` builds and shrinks the JAR file. The size of the
 The original size of `netty-all` is 4 MB.
 
 The pure TCP/IP server starts up within `5 milli seconds`.
+This is the console output:
+```
+SO_KEEPALIVE=false
+SO_TIMEOUT=0
+TCP_NODELAY=false
+SO_OOBINLINE=false
+SO_LINGER=-1
+```
