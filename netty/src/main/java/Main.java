@@ -23,8 +23,8 @@ public class Main {
         }
         long t5 = System.currentTimeMillis();
         System.out.println( "t5 = " + (t5 - t4) + " millis" );
-        Thread.sleep(1000L);
-        channelFuture.await();
+        Thread.sleep(100L);
+        nettyClient.shutdown();
         nettyServer.shutdown();
     }
 }

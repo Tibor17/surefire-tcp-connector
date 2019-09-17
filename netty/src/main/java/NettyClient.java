@@ -8,6 +8,8 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
+import static java.util.concurrent.TimeUnit.MINUTES;
+
 public class NettyClient {
     int port;
     Channel channel;
@@ -37,7 +39,9 @@ public class NettyClient {
         }finally{
         }
     }
-    public void shutdown(){
+    public void shutdown() throws InterruptedException
+    {
         workGroup.shutdownGracefully();
+        workGroup.awaitTermination( 1, MINUTES );
     }
 }

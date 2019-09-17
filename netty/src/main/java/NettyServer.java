@@ -11,14 +11,18 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
-public class NettyServer {
+import static java.util.concurrent.TimeUnit.MINUTES;
+
+public class NettyServer
+{
     private final int port;
 
     private final EventLoopGroup workerGroup;
 
     private volatile ChannelFuture channelFuture;
 
-    public NettyServer(int port) {
+    public NettyServer( int port )
+    {
         this.port = port;
         final ThreadFactory threadFactory = Executors.defaultThreadFactory();
         ThreadFactory daemonThreadFactory = new ThreadFactory()
@@ -30,27 +34,26 @@ public class NettyServer {
                 return t;
             }
         };
-        ExecutorService executor = Executors.newCachedThreadPool(daemonThreadFactory);
-        workerGroup = new NioEventLoopGroup(3, executor);
+        ExecutorService executor = Executors.newCachedThreadPool( daemonThreadFactory );
+        workerGroup = new NioEventLoopGroup( 3, executor );
     }
 
     public void connectLoop() throws Exception
     {
         ServerBootstrap b = new ServerBootstrap(); // (2)
-        b.group(workerGroup)
-                .channel(NioServerSocketChannel.class) // (3)
-                .childHandler(new ChannelInitializer<SocketChannel>() { // (4)
+        b.group( workerGroup ).channel( NioServerSocketChannel.class ) // (3)
+                .childHandler( new ChannelInitializer<SocketChannel>()
+                { // (4)
                     @Override
-                    public void initChannel(SocketChannel ch) throws Exception
+                    public void initChannel( SocketChannel ch ) throws Exception
                     {
-                        ch.pipeline().addLast(new NettyHandler());
+                        ch.pipeline().addLast( new NettyHandler() );
                     }
-                })
-                .option(ChannelOption.SO_BACKLOG, 128)          // (5)
-                .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
+                } ).option( ChannelOption.SO_BACKLOG, 128 )          // (5)
+                .childOption( ChannelOption.SO_KEEPALIVE, true ); // (6)
 
         // Bind and start to accept incoming connections.
-        ChannelFuture f = b.bind(port).sync(); // (7)
+        ChannelFuture f = b.bind( port ).sync(); // (7)
 
 
         f.channel();
@@ -58,11 +61,14 @@ public class NettyServer {
         //f.channel().closeFuture().sync();
     }
 
-    public void shutdown() {
+    public void shutdown() throws InterruptedException
+    {
         workerGroup.shutdownGracefully();
+        workerGroup.awaitTermination( 1, MINUTES );
     }
 
-    public ChannelFuture getChannelFuture() {
+    public ChannelFuture getChannelFuture()
+    {
         return channelFuture;
     }
 }
