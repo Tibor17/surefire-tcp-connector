@@ -12,6 +12,9 @@
     <modules>
         <module>netty</module>
         <module>java-api</module>
+        <module>async-sockets</module>
+        <module>java-nonblocking</module>
+        <module>surefire-connector</module>
     </modules>
 
     <properties>
